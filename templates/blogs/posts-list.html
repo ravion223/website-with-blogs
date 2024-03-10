@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container">
+    <h2>Posts:</h2>
+        {% for post in posts %}
+        <a href="{% url 'post-detail' post.id %}" class="list-group-item list-group-item-action">{{ post.title }}</a>
+        {% endfor %}
+</div>
+{% endblock body %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container">
+    {{ post.title }}
+    {{ post.text }}
+        {% if post.post_image %}
+            <img src="{{ post.post_image.url }}" class="max-w-full h-auto mb-8 rounded-lg shadow-lg" alt="Post Image">
+        {% endif %}
+    {{ post.posted_at }}
+</div>
+{% endblock body %}

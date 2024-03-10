@@ -12,7 +12,7 @@ class Post(models.Model):
     posted_at = models.DateTimeField(auto_now_add = True)
 
     def __str__(self) -> str:
-        return f"Post {self.name} by {self.user.username} - {self.posted_at}"
+        return f"Post '{self.title}' by {self.author.username} - {self.posted_at}"
     
     class Meta:
         ordering = ["posted_at"]
