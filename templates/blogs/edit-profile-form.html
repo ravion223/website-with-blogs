@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block body %}
+    <form action="{% url 'edit-profile-form' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        If you want to change your password - <a href="/password">click this</a><br><br>
+        <button type="submit" class="btn btn-primary">Edit profile</button>
+    </form>
+{% endblock body %}

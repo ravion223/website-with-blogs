@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body %}
+{% if request.user.is_authenticated %}
+<form action="{% url 'post-form' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- <div class="container">
+        <label for="title">Enter post title:</label>
+        <input type="text" name="title" id="title">
+    </div>
+    <div class="container">
+        <label for="post-content">Enter post content:</label>
+        <input type="text" name="post-content" id="post-content">
+    </div>
+    <div class="container">
+        <label for="post_image">Enter post image:</label>
+        <input type="file" name="post_image" id="post_image">
+    </div> -->
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Post</button>
+</form>
+{% else %}
+<h1>You are not authenticated</h1>
+{% endif %}
+{% endblock body %}

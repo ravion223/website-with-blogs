@@ -13,9 +13,24 @@
         <h1 class = "link-light">BlogHub</h1>
         <li class = "nav-item mt-3 ms-3">
             <a href = "/" class = "link-light">Main</a>
-            <a href = "#" class = "link-light">Create new a post</a>
-            <a href="#" class="link-light">Register</a>
+            <a href = "/post-form/" class = "link-light">Create new a post</a>
+            <a href="/register" class="link-light">Register</a>
         </li>
+        {% if request.user.is_authenticated %}
+        <div class="dropdown mt-2 ms-2">
+            {% if profile.profile_pic %}
+                <img class="rounded-circle" src="{{ profile.profile_pic.url }}" width="40" height="40" class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+            {% else %}
+                <img class="rounded-circle" src="{% static 'img/default-profile-pic.jpg' %}" width="40" height="40" class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+            {% endif %}
+            <!-- <img class="rounded-circle" src="{{ user.profile.profile_pic }}" width="40" height="40" class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"> -->
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                <li><a class="dropdown-item" href="/edit-profile-form">Edit profile</a></li>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+        {% endif %}
     </ul>
 </header>
 <body>
