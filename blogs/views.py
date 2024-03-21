@@ -104,6 +104,29 @@ def get_profile(request):
     )
 
 
+def get_profile_by_id(request, pk):
+    sprofile = get_object_or_404(Profile, id=pk)
+    profile = None
+    if request.user.is_authenticated:
+        try:
+            profile = Profile.objects.get(user=request.user)
+        except Profile.DoesNotExist:
+            pass
+
+    context = {
+        'sprofile': sprofile,
+        'profile': profile,
+        'posts': sprofile.user.posts.all()
+    }
+
+    return render(
+        request,
+        'blogs/sprofile.html',
+        context
+    )
+
+
+
 def post_form(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
