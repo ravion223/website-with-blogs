@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.views import generic
 from django.contrib.auth.views import PasswordChangeView
 from .forms import EditProfileForm
+from blogs.models import Profile
 
 
 # Create your views here.
@@ -20,10 +21,16 @@ def register_view(request):
             return HttpResponseRedirect('/')
     else:
         form = UserCreationForm()
+        profile = None
+        if request.user.is_authenticated:
+            try:
+                profile = Profile.objects.get(user=request.user)
+            except Profile.DoesNotExist:
+                pass
 
     return render(request,
                 'auth_system/registration-form.html',
-                {'form': form}
+                {'form': form, 'profile': profile}
     )
 
 
@@ -42,11 +49,17 @@ def login_view(request):
             return HttpResponseRedirect('/')
     else:
         form = AuthenticationForm()
+        profile = None
+        if request.user.is_authenticated:
+            try:
+                profile = Profile.objects.get(user=request.user)
+            except Profile.DoesNotExist:
+                pass
 
     return render(
         request,
         "auth_system/login-form.html",
-        {"form": form}
+        {"form": form, 'profile': profile}
     )
 
 

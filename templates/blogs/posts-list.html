@@ -1,9 +1,30 @@
 {% extends "base.html" %}
 {% block body %}
+{% load static %}
 <div class="container">
     <h2>Posts:</h2>
+    <div class="list-group">
         {% for post in posts %}
-        <a href="{% url 'post-detail' post.id %}" class="list-group-item list-group-item-action">{{ post.title }}</a>
+        <a href="{% url 'post-detail' post.id %}" class="list-group-item list-group-item-action">
+            {% if post.post_image %}
+            <!-- Adjust width and height to maintain proportions, and center the image -->
+            <img src="{{ post.post_image.url }}" class="card-img-top" alt="Post Image" style="max-width: 200px; max-height: 200px; display: block; margin-left: auto; margin-right: auto;">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.text }}</p>
+                <div class="d-flex w-100 justify-content-between">
+                    <small>Author: {{ post.author.username }}</small>
+                    <small>
+                        {% if post.total_likes > 0 %}
+                        <img src="{% static 'img/liked-button.png' %}" width="25" height="25">
+                        {% endif %}
+                        {{ post.total_likes }}
+                    </small>
+                </div>
+            </div>
+        </a>
         {% endfor %}
+    </div>
 </div>
 {% endblock body %}

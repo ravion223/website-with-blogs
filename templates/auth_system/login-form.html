@@ -1,8 +1,21 @@
 {% extends "base.html" %}
 {% block body %}
-    <form method="post" action="{% url 'login-form' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Authenticate</button>
-    </form>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Log In</h2>
+          <form method="post" action="{% url 'login-form' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary btn-block mt-4">Log In</button>
+          </form>
+          <hr>
+          <p class="text-center">Don't have an account? <a href="{% url 'registration-form' %}">Sign Up</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock body %}

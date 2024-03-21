@@ -24,11 +24,15 @@ class Profile(models.Model):
 
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "posts")
+    likes = models.ManyToManyField(User, related_name='liked_posts')
 
     title = models.CharField(max_length = 63)
     text = models.TextField()
     post_image = models.ImageField(null = True, blank = True, upload_to = "images/")
     posted_at = models.DateTimeField(auto_now_add = True)
+
+    def total_likes(self):
+        return self.likes.count()
 
     def __str__(self) -> str:
         return f"Post '{self.title}' by {self.author.username} - {self.posted_at}"

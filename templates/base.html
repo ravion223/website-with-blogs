@@ -8,37 +8,59 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>BlogHub</title>
 </head>
-<header class = "text-bg-primary">
-    <ul class = "nav justify-content-center">
-        <h1 class = "link-light">BlogHub</h1>
-        <li class = "nav-item mt-3 ms-3">
-            <a href = "/" class = "link-light">Main</a>
-            <a href = "/post-form/" class = "link-light">Create new a post</a>
-            <a href="/register" class="link-light">Register</a>
-        </li>
-        {% if request.user.is_authenticated %}
-        <div class="dropdown mt-2 ms-2">
-            {% if profile.profile_pic %}
-                <img class="rounded-circle" src="{{ profile.profile_pic.url }}" width="40" height="40" class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
-            {% else %}
-                <img class="rounded-circle" src="{% static 'img/default-profile-pic.jpg' %}" width="40" height="40" class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
-            {% endif %}
-            <!-- <img class="rounded-circle" src="{{ user.profile.profile_pic }}" width="40" height="40" class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"> -->
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                <li><a class="dropdown-item" href="/edit-profile-form">Edit profile</a></li>
-                <li><a class="dropdown-item" href="/logout">Logout</a></li>
-            </ul>
-        </div>
-        {% endif %}
-    </ul>
-</header>
 <body>
+<header class="text-bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'img/bloghub-logo.png' %}" height="40" alt="BlogHub Logo">
+            </a>
+            <h2 class="navbar-text mx-2">BlogHub</h2>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Main</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/post-form/">Create a new post</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                        <div class="dropdown mt-1 ms-2 me-3">
+                        {% if profile.profile_pic %}
+                            <img class="rounded-circle" src="{{ profile.profile_pic.url }}" width="40" height="40" class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                        {% else %}
+                            <img class="rounded-circle" src="{% static 'img/default-profile-pic.jpg' %}" width="40" height="40" class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                        {% endif %}
+                <!-- <img class="rounded-circle" src="{{ user.profile.profile_pic }}" width="40" height="40" class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"> -->
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/edit-profile-form">Edit profile</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        </ul>
+                        </div>
+                    {% endif %}
+                </ul>
+            </div>
+            <form class="d-flex" role="search" method="POST" action="{% url 'search-blogs' %}">
+                {% csrf_token %}
+                <input class="form-control me-2 border" type="search" placeholder="Search BlogHub" aria-label="Search" name="searched">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+</header>
+<div id="content">
     {% block body %}
     {% endblock body %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</div>
 </body>
-<footer class="py-3 my-4 border-top fixed-bottom">
-    <p class="text-center text-muted">@2024</p>
+<footer class="py-1 my-4 border-top">
+    <div class="text-center text-muted">
+        &copy; 2024
+    </div>
 </footer>
 </html>

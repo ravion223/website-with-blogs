@@ -19,6 +19,18 @@ class PostForm(ModelForm):
         }
 
 
+class CommentaryForm(ModelForm):
+    class Meta:
+        model = Commentary
+        fields = ('content',)
+        labels = {
+            'content': ''
+        }
+
+        widgets = {
+            'content': forms.TextInput(attrs={'class': 'form-control'})
+        }
+
 class EditProfileForm(ModelForm):
     class Meta:
         model = Profile
