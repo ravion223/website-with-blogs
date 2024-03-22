@@ -12,7 +12,7 @@
             {% endif %}
             <h2>{{ profile.user.username }}</h2>
             <p class="lead">{{ profile.name }}</p>
-            <p>{{ profile.bio }}</p>
+            <p>Bio: {{ profile.bio }}</p>
             {% if profile.user.email is not Null %}
                 <p>Email: {{ profile.email }}</p>
             {% else %}

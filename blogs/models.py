@@ -33,12 +33,15 @@ class Post(models.Model):
 
     def total_likes(self):
         return self.likes.count()
+    
+    def total_comments(self):
+        return self.commentaries.count()
 
     def __str__(self) -> str:
         return f"Post '{self.title}' by {self.author.username} - {self.posted_at}"
     
     class Meta:
-        ordering = ["posted_at"]
+        ordering = ["-posted_at"]
         verbose_name = "Post"
         verbose_name_plural = "Posts"
 
@@ -54,6 +57,6 @@ class Commentary(models.Model):
         return f"Commentary by {self.author.username} on post {self.post} - {self.posted_at}"
     
     class Meta:
-        ordering = ["posted_at"]
+        ordering = ["-posted_at"]
         verbose_name = "Commentary"
         verbose_name_plural = "Commentaries"

@@ -53,6 +53,7 @@ def get_post(request, pk: int):
     form = CommentaryForm()
     stuff = get_object_or_404(Post, id=pk)
     total_likes = stuff.total_likes()
+    total_comments = stuff.total_comments()
     profile = None
     if request.user.is_authenticated:
         try:
@@ -78,6 +79,7 @@ def get_post(request, pk: int):
         "commentaries": post.commentaries.all(),
         "form": form,
         'total_likes': total_likes,
+        'total_comments': total_comments,
         'liked': liked,
         'profile': profile,
     }
@@ -152,7 +154,7 @@ def edit_profile_view(request):
         form = EditProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/profile/')
+            return HttpResponseRedirect('/my-profile/')
     else:
         form = EditProfileForm(instance=request.user.profile)
         profile = Profile.objects.get(user=request.user)

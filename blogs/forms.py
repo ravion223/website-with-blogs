@@ -28,7 +28,7 @@ class CommentaryForm(ModelForm):
         }
 
         widgets = {
-            'content': forms.TextInput(attrs={'class': 'form-control'})
+            'content': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Add a comment...'})
         }
 
 class EditProfileForm(ModelForm):
@@ -43,7 +43,7 @@ class EditProfileForm(ModelForm):
         }
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'bio': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'})
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your name'}),
+            'bio': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your bio'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your email'})
         }
