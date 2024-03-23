@@ -24,9 +24,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/post-form/">Create a new post</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register">Register</a>
-                    </li>
+                    {% if not request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                    {% else %}
+                        <p></p>
+                    {% endif %}
                     {% if request.user.is_authenticated %}
                         <div class="dropdown mt-1 ms-2 me-3">
                         {% if profile.profile_pic %}

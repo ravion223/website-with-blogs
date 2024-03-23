@@ -29,7 +29,12 @@
     <h2>Add a Comment</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% if request.user.is_authenticated %}
+            {{ form.as_p }}
+        {% else %}
+            <input class="form-control" placeholder="You have to register or login first" disabled>
+            <br>
+        {% endif %}
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
