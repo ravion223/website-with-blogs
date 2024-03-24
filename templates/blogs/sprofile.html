@@ -12,12 +12,32 @@
             {% endif %}
             <h2>{{ sprofile.user.username }}</h2>
             <p class="lead">{{ sprofile.name }}</p>
-            <p>{{ sprofile.bio }}</p>
+            <p>Bio: {{ sprofile.bio }}</p>
             {% if sprofile.user.email is not Null %}
                 <p>Email: {{ sprofile.email }}</p>
             {% else %}
                 <p>Email: not specified</p>
             {% endif %}
+            {{ sprofile.total_followers }} Followers
+            <form method="POST" action="{% url 'followed-profile' sprofile.pk %}">
+                {% csrf_token %}
+                {% if request.user.is_authenticated %}
+                    {% if sprofile.id == profile.id %}
+                        {% else %}
+                            {% if followed %}
+                            <button type="submit" class="btn btn-danger" name="profile_id" value="{{ sprofile.pk }}">
+                                Unfollow
+                            </button>
+                            {% else %}
+                            <button type="submit" class="btn btn-primary" name="profile_id" value="{{ sprofile.pk }}">
+                                Follow
+                            </button>
+                            {% endif %}
+                    {% endif %}
+                {% else %}
+                    You have to register or login to follow profiles
+                {% endif %}
+            </form>
 
         </div>
     </div>

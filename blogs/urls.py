@@ -10,4 +10,5 @@ urlpatterns = [
     path('edit-profile-form/', edit_profile_view, name="edit-profile-form"),
     path('search-blogs/', search_blogs, name="search-blogs"),
     path('like/<int:pk>', like_post, name='liked_post'),
+    path('follow/<int:pk>', follow_profile, name="followed-profile")
 ]

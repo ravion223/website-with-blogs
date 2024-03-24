@@ -1,45 +1,37 @@
+<!-- Your HTML template -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image with Clickable Dropdown</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Theme Toggle</title>
+  <!-- Link to Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Link to your custom CSS -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="dropdown">
-            <img src="your_image_url" width="30" height="30" class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-        </div>
+  <!-- Corrected button markup -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Your Website</a>
+      <button class="navbar-toggler" type="button" id="darkModeToggle">ffffff
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
+  </nav>
+  
+  
+  <div class="container mt-4">
+    <h1>Welcome to Your Website</h1>
+    <p>This is some sample content.</p>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script>
-        // Add JavaScript to close dropdown when clicking outside of it
-        document.addEventListener("click", function(event) {
-            var dropdown = document.querySelector('.dropdown');
-            var targetElement = event.target; // clicked element
-
-            do {
-                if (targetElement == dropdown) {
-                    return;
-                }
-                // Go up the DOM
-                targetElement = targetElement.parentNode;
-            } while (targetElement);
-
-            // Outside click detected
-            var dropdowns = document.querySelectorAll('.dropdown');
-            dropdowns.forEach(function(el) {
-                el.classList.remove('show');
-            });
-        });
-    </script>
+  <!-- Include jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Include Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Include your custom JavaScript -->
+  <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

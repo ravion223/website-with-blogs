@@ -106,9 +106,14 @@ def get_profile(request):
     )
 
 
-def get_profile_by_id(request, pk):
+def get_profile_by_id(request, pk: int):
     sprofile = get_object_or_404(Profile, id=pk)
     profile = None
+
+    followed = False
+    if sprofile.followers.filter(id=request.user.id).exists():
+        followed = True
+
     if request.user.is_authenticated:
         try:
             profile = Profile.objects.get(user=request.user)
@@ -118,7 +123,8 @@ def get_profile_by_id(request, pk):
     context = {
         'sprofile': sprofile,
         'profile': profile,
-        'posts': sprofile.user.posts.all()
+        'posts': sprofile.user.posts.all(),
+        'followed': followed
     }
 
     return render(
@@ -199,3 +205,16 @@ def like_post(request, pk):
         liked = True
 
     return HttpResponseRedirect(reverse('post-detail', args=[str(pk)]))
+
+
+def follow_profile(request, pk: int):
+    profile = get_object_or_404(Profile, id=request.POST.get('profile_id'))
+    followed = False
+    if profile.followers.filter(id=request.user.id).exists():
+        profile.followers.remove(request.user)
+        followed = False
+    else:
+        profile.followers.add(request.user)
+        followed = True
+
+    return HttpResponseRedirect(reverse('profile', args=[str(pk)]))

@@ -6,12 +6,16 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete = models.CASCADE)
+    followers = models.ManyToManyField(User, related_name='followed_profile')
 
     name = models.CharField(max_length=200, null=True)
     bio = models.TextField(blank=True, null=True)
     profile_pic = models.ImageField(blank=True, null=True, upload_to="profile/")
     email = models.EmailField(blank=True, null=True)
     date_of_creation = models.DateTimeField(auto_now_add = True, null = True)
+
+    def total_followers(self):
+        return self.followers.count()
 
     def __str__(self) -> str:
         return f"{self.user.username}'s profile"
